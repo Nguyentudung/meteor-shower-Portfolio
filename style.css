@@ -1,0 +1,345 @@
+:root{
+  --bg:#071023;
+  --glass: rgba(255,255,255,0.06);
+  --accent: #6EE7B7;
+  --accent-2:#8AB4FF;
+  --glass-2: rgba(255,255,255,0.04);
+  --mono: 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* ---------- Splash Screen Styles ---------- */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: rgba(7, 16, 35, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.7s ease-out, visibility 0.7s ease-out;
+}
+
+#splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* .play-button {
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+} */
+
+.play-button {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+
+  position: absolute;
+  bottom: 125%; /* phía trên icon */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.play-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.play-button svg {
+  width: 45px;
+  height: 45px;
+  fill: white;
+  transform: translateX(4px);
+}
+
+/* Ẩn nội dung chính ban đầu */
+.wrap, footer {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.8s ease-in 0.3s;
+}
+
+/* Hiện nội dung chính khi cần */
+.wrap.visible, footer.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ---------- Original Styles ---------- */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:var(--mono);
+  background:var(--bg);
+  color:#e6eef8
+}
+
+/* canvas full-screen starfield */
+#bg-canvas{
+  position:fixed;
+  inset:0;
+  z-index:0
+}
+
+/* page layout */
+.wrap{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px
+}
+
+.card{
+  width:100%;
+  max-width:980px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius:18px;
+  padding:28px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 10px 30px rgba(2,6,23,0.6);
+  border:1px solid rgba(255,255,255,0.04);
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:28px}
+
+/* left - intro */
+.intro h1{
+  font-size:36px;
+  margin:0 0 6px 0;
+  letter-spacing:0.6px
+}
+
+.intro p.lead{
+  margin:0 0 14px 0;
+  color:#cfe7ffcc
+}
+
+.roles{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:18px
+}
+
+.pill{
+  padding:8px 12px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--accent-2),var(--accent));
+  color:#022;
+  font-weight:700;
+  font-size:13px
+}
+
+/* typing effect */
+.typing{
+  font-weight:600;
+  color:var(--accent);
+  height:22px
+}
+
+/* action buttons */
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:10px
+}
+
+.btn{
+  padding:10px 14px;
+  border-radius:12px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,255,255,0.06);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:inherit
+}
+
+.btn.primary{
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#022;
+  border:none
+}
+
+/* social icons column */
+.side{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  padding:18px;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03)
+}
+
+.avatar{
+  width:120px;
+  height:120px;
+  border-radius:999px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid rgba(255,255,255,0.06);
+  background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.socials{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  width:100%
+}
+
+.socials a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border-radius:10px;
+  text-decoration:none;
+  color:inherit;
+  border:1px solid rgba(255,255,255,0.03);
+  background:var(--glass-2)
+}
+
+.socials svg{
+  width:20px;
+  height:20px;
+  flex-shrink:0
+}
+
+/* sections below */
+.grid-btm{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  margin-top:22px;
+  gap:12px
+}
+
+.card-mini{
+  padding:12px;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03)
+}
+
+/* floating blobs */
+.blob{
+  position:absolute;
+  z-index:1;
+  filter:blur(40px);
+  opacity:0.5
+}
+
+.blob.b1{
+  width:420px;
+  height:420px;
+  right:-80px;
+  top:-60px;
+  background:radial-gradient(circle at 20% 20%, #6ee7b7, transparent 30%), radial-gradient(circle at 80% 80%, #8ab4ff20, transparent 40%)
+}
+
+.blob.b2{
+  width:320px;
+  height:320px;
+  left:-60px;
+  bottom:-90px;
+  background:radial-gradient(circle at 30% 30%, #8ab4ff, transparent 25%), radial-gradient(circle at 80% 80%, #6ee7b720, transparent 30%)
+}
+
+/* footer */
+footer{
+  margin-top:26px;
+  text-align:center;
+  color:#bcd7ff66;
+  font-size:13px
+}
+
+/* small screens */
+@media(max-width:920px){.card{grid-template-columns:1fr;
+}.side{order:-1;
+  flex-direction:row;
+  justify-content:space-between}.avatar{width:80px;
+  height:80px}.socials{flex-direction:row;
+  gap:6px}.grid-btm{grid-template-columns:1fr}}
+
+/* subtle parallax tilt */
+.card[data-tilt]{
+  transition:transform .12s ease-out
+}
+
+/* reveal animations */
+.reveal{
+  opacity:0;
+  transform:translateY(8px);
+  transition:all .6s cubic-bezier(.2,.9,.2,1)
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none
+}
+
+/* * {
+    cursor: auto !important;
+}
+
+#splash-screen, .wrap, .card, body {
+    cursor: auto !important;
+} */
+
+/* Chuột mặc định custom */
+body, .wrap, .card, footer {
+    cursor: url('mousecuttom.png'), auto;
+}
+
+/* Các nút bình thường */
+button, .btn, a {
+    cursor: url('clickcuttom.png'), pointer;
+}
+
+/* Con trỏ custom cho nút play */
+#splash-screen, #splash-screen .play-button {
+    cursor: url('clickcuttom.png'), pointer;
+}
